@@ -7,7 +7,7 @@ import 'package:whatsapp_messenger/page1.dart';
 
 
 class Signup extends StatefulWidget {
-  const Signup({Key? key}) : super(key: key);
+  const Signup({super.key});
 
   @override
   State<Signup> createState() => _SignupState();
@@ -15,8 +15,8 @@ class Signup extends StatefulWidget {
 
 class _SignupState extends State<Signup> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  var _emailController = TextEditingController();
-  var _passwordController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   @override
   void initState() {
