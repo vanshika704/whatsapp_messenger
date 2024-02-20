@@ -23,34 +23,36 @@ class _SignupState extends State<Signup> {
     super.initState();
   }
 
-  Future<void> _signInWithEmailAndPassword() async {
-    try {
-      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim(),
-      );
+  Future<void> _signUpWithEmailAndPassword() async {
+  try {
+    UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
+      email: _emailController.text.trim(),
+      password: _passwordController.text.trim(),
+    );
 
-      print("Signed in: ${userCredential.user?.uid}");
+    print("Signed up: ${userCredential.user?.uid}");
 
-      Get.snackbar(
-        "Success",
-        "Signed in successfully",
-        snackPosition: SnackPosition.BOTTOM,
-        duration: Duration(seconds: 2),
-      );
+    Get.snackbar(
+      "Success",
+      "Signed up successfully",
+      snackPosition: SnackPosition.BOTTOM,
+      duration: const Duration(seconds: 2),
+    );
 
-      Get.off(page1());
-    } on FirebaseAuthException catch (e) {
-      print("Error: $e");
+    
+     Get.off(const Page1());
+  } on FirebaseAuthException catch (e) {
+    print("Error: $e");
 
-      Get.snackbar(
-        "Error",
-        "Failed to sign in: ${e.message}",
-        snackPosition: SnackPosition.BOTTOM,
-        duration: Duration(seconds: 3),
-      );
-    }
+    Get.snackbar(
+      "Error",
+      "Failed to sign up: ${e.message}",
+      snackPosition: SnackPosition.BOTTOM,
+      duration: const Duration(seconds: 3),
+    );
   }
+}
+
 Future<void> _signInWithGoogle() async {
   try {
     final GoogleSignInAccount? googleSignInAccount =
@@ -74,7 +76,7 @@ Future<void> _signInWithGoogle() async {
       snackPosition: SnackPosition.BOTTOM,
       duration: Duration(seconds: 2),
     );
-    Get.off(page1());
+    Get.off(Page1());
   } catch (e) {
     print("Error signing in with Google: $e");
     print('Unexpected error during Google Sign-In: $e');
@@ -152,7 +154,7 @@ Future<void> _signInWithGoogle() async {
                 try {
                   print("testing");
                   await _signInWithGoogle();
-                  Get.to(() => const page1());
+                  Get.to(() => const Page1());
                 } catch (e) {
                   print('Error signing in: $e');
                 }
@@ -171,7 +173,7 @@ Future<void> _signInWithGoogle() async {
                 backgroundColor: const Color.fromARGB(255, 30, 184, 35),
               ),
               onPressed: () {
-                _signInWithEmailAndPassword();
+                _signUpWithEmailAndPassword();
               },
               child: const Text(
                 "SIGN IN WITH EMAIL",

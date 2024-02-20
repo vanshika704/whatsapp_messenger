@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
       home: const Signup(),
       initialRoute: '/',
       getPages: [
-        GetPage(name: '/page1', page: () => const page1()),
+        GetPage(name: '/page1', page: () => const Page1()),
       ],
     );
   }
