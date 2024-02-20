@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:whatsapp_messenger/chats.dart';
 
 class Page1 extends StatefulWidget {
   const Page1({Key? key}) : super(key: key);
@@ -72,14 +73,10 @@ class _Page1State extends State<Page1> {
   }
 }
 
-
-
 class ChatController extends GetxController {
-
   RxList<Map<String, String>> chatData = [
     {"name": "John Doe", "message": "Hello!", "imageUrl": "url_to_image"},
     {"name": "Jane Doe", "message": "Hi there!", "imageUrl": "url_to_image"},
-    
   ].obs;
 }
 
@@ -100,7 +97,7 @@ class Chats extends StatelessWidget {
             title: Text(chatController.chatData[index]['name'] ?? ''),
             subtitle: Text(chatController.chatData[index]['message'] ?? ''),
             onTap: () {
-             
+              Get.to(PersonalChat());
             },
           );
         },
@@ -108,4 +105,3 @@ class Chats extends StatelessWidget {
     );
   }
 }
-
