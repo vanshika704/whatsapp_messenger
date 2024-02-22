@@ -15,11 +15,9 @@ class _PersonalChatState extends State<PersonalChat> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(
+        title: const Row(
           children: [
-            CircleAvatar(
-             
-            ),
+            CircleAvatar(),
             SizedBox(width: 8),
             Text("John Doe"),
           ],
@@ -46,7 +44,7 @@ class _PersonalChatState extends State<PersonalChat> {
                   hintText: 'Type text....',
                   prefixIcon: Icon(Icons.camera),
                   filled: true,
-                  fillColor: Colors.transparent, 
+                  fillColor: Colors.transparent,
                 ),
               ),
             ),
