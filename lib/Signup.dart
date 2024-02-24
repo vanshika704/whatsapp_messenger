@@ -171,7 +171,7 @@ Future<void> _signInWithGoogle() async {
         "Failed to sign in: ${e}",
         snackPosition: SnackPosition.BOTTOM,
         duration: Duration(seconds: 3),
-      );
+      );//.
 
                 }
               },
