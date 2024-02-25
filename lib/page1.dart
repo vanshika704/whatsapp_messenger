@@ -7,61 +7,73 @@ class Page1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color.fromARGB(12, 251, 251, 252),
-        title: const Text(
-          "WhatsApp",
-          style: TextStyle(
-            color: Color.fromARGB(255, 254, 255, 255),
-            fontWeight: FontWeight.bold,
-            fontSize: 30,
+    return DefaultTabController(
+      length: 4, 
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Color.fromARGB(255, 54, 54, 54),
+          title: const Text(
+            "WhatsApp",
+            style: TextStyle(
+              color: Color.fromARGB(255, 254, 255, 255),
+              fontWeight: FontWeight.bold,
+              fontSize: 30,
+            ),
           ),
-        ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: Icon(Icons.camera_alt),
-            onPressed: () {},
-          ),
-          PopupMenuButton(
-            itemBuilder: (BuildContext context) {
-              return [
-                PopupMenuItem(
-                  child: Text("New group"),
-                ),
-                PopupMenuItem(
-                  child: Text("New broadcast"),
-                ),
-                PopupMenuItem(
-                  child: Text("Linked devices"),
-                ),
-                PopupMenuItem(
-                  child: Text("Starred messages"),
-                ),
-                PopupMenuItem(
-                  child: Text("Payments"),
-                ),
-                PopupMenuItem(
-                  child: Text("Settings"),
-                ),
-              ];
-            },
-          ),
-        ],
-        bottom: const TabBar(
-          tabs: [
-            Tab(icon: Icon(Icons.group)),
-            Tab(text: "CHATS"),
-            Tab(text: "STATUS"),
-            Tab(text: "CALLS"),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.search,color: Colors.white,),
+              onPressed: () {},
+            ),
+            IconButton(
+              icon: Icon(Icons.camera_alt,color: Colors.white,),
+              onPressed: () {},
+            ),
+            PopupMenuButton(color: Colors.white,
+              itemBuilder: (BuildContext context) {
+                return [
+                  PopupMenuItem(
+                    child: Text("New group"),
+                  ),
+                  PopupMenuItem(
+                    child: Text("New broadcast"),
+                  ),
+                  PopupMenuItem(
+                    child: Text("Linked devices"),
+                  ),
+                  PopupMenuItem(
+                    child: Text("Starred messages"),
+                  ),
+                  PopupMenuItem(
+                    child: Text("Payments"),
+                  ),
+                  PopupMenuItem(
+                    child: Text("Settings"),
+                  ),
+                ];
+              },
+            ),
           ],
+          bottom: const TabBar(
+  labelColor: Colors.white, 
+  unselectedLabelColor: Colors.white, 
+  tabs: [
+    Tab(icon: Icon(Icons.group)),
+    Tab(
+      text: "CHATS",
+    ),
+    Tab(
+      text: "STATUS",
+    ),
+    Tab(
+      text: "CALLS",
+    ),
+  ],
+),
+
         ),
+        body: Chats(),
       ),
-      body: Chats(),
     );
   }
 }
@@ -90,13 +102,13 @@ class Chats extends StatelessWidget {
             ),
             title: Text(
               chatController.chatData[index]['name'] ?? '',
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Color.fromARGB(255, 253, 253, 253)),
             ),
             subtitle: Text(
               chatController.chatData[index]['message'] ?? '',
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Color.fromARGB(255, 253, 253, 253)),
             ),
-            tileColor: Color.fromARGB(12, 251, 251, 252),
+            tileColor: Color.fromARGB(255, 37, 37, 37),
             onTap: () {
               Get.to(PersonalChat(), arguments: index);
             },
