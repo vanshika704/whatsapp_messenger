@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+
 import 'package:contacts_service/contacts_service.dart';
 import 'package:whatsapp_messenger/chats.dart';
 
@@ -79,6 +79,8 @@ class Page1 extends StatelessWidget {
   }
 }
 
+
+
 class Chats extends StatefulWidget {
   @override
   _ChatsState createState() => _ChatsState();
@@ -120,7 +122,12 @@ class _ChatsState extends State<Chats> {
             ),
           ),
           onTap: () {
-            Get.to(PersonalChat(), arguments: _contacts[index]);
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => PersonalChat(contact: contact),
+              ),
+            );
           },
         );
       },

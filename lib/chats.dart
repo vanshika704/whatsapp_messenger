@@ -1,26 +1,33 @@
+// personal_chat.dart
+
 import 'package:flutter/material.dart';
 import 'package:whatsapp_messenger/common/colors.dart';
+import 'package:contacts_service/contacts_service.dart';
 
-class PersonalChat extends StatefulWidget {
-  const PersonalChat({Key? key}) : super(key: key);
+class PersonalChat extends StatelessWidget {
+  final Contact contact;
 
-  @override
-  State<PersonalChat> createState() => _PersonalChatState();
-}
-
-class _PersonalChatState extends State<PersonalChat> {
-  final TextEditingController _messagingcontroller = TextEditingController();
+  const PersonalChat({Key? key, required this.contact}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Coloors.backgroundDark(),
-        title: const Row(
+        title: Row(
           children: [
-            CircleAvatar(),
+            CircleAvatar(
+              backgroundImage: contact.avatar != null
+                  ? MemoryImage(contact.avatar!)
+                  : AssetImage('assets/default.png') as ImageProvider<Object>?,
+            ),
             SizedBox(width: 8),
-            Text("John Doe"),
+            Text(
+              contact.displayName ?? 'Unknown',
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
           ],
         ),
       ),
@@ -38,7 +45,6 @@ class _PersonalChatState extends State<PersonalChat> {
             child: Container(
               padding: EdgeInsets.all(16),
               child: TextField(
-                controller: _messagingcontroller,
                 keyboardType: TextInputType.emailAddress,
                 decoration: const InputDecoration(
                   labelText: 'Type.....',
