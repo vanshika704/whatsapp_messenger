@@ -107,12 +107,18 @@ class _ChatsState extends State<Chats> {
       itemBuilder: (BuildContext context, int index) {
         Contact contact = _contacts[index];
         return ListTile(
+          tileColor: const Color.fromARGB(255, 56, 56, 56),
           leading: CircleAvatar(
             backgroundImage: contact.avatar != null
                 ? MemoryImage(contact.avatar!)
                 : AssetImage('assets/default.png') as ImageProvider<Object>?,
           ),
-          title: Text(contact.displayName ?? ''),
+          title: Text(
+            contact.displayName ?? '',
+            style: TextStyle(
+              color: Colors.white, 
+            ),
+          ),
           onTap: () {
             Get.to(PersonalChat(), arguments: _contacts[index]);
           },
