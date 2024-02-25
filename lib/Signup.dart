@@ -165,11 +165,13 @@ Future<void> _signInWithGoogle() async {
                   await _signInWithGoogle();
                   Get.to(() => const Page1());
                 } catch (e) {
-               Get.snackbar(
-              'Error signing in: $e',
-               duration: const Duration(seconds: 2),
-               snackPosition: SnackPosition.TOP,
-);
+                
+      Get.snackbar(
+        "Error",
+        "Failed to sign in: ${e}",
+        snackPosition: SnackPosition.BOTTOM,
+        duration: Duration(seconds: 3),
+      );
 
                 }
               },
