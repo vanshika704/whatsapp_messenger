@@ -14,7 +14,7 @@ class _PersonalChatState extends State<PersonalChat> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: AppBar(backgroundColor: Coloors.backgroundDark(),
         title: const Row(
           children: [
             CircleAvatar(),

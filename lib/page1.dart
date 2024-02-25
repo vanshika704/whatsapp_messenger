@@ -1,22 +1,15 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:whatsapp_messenger/chats.dart';
 
-class Page1 extends StatefulWidget {
+class Page1 extends StatelessWidget {
   const Page1({Key? key}) : super(key: key);
 
-  @override
-  State<Page1> createState() => _Page1State();
-}
-
-class _Page1State extends State<Page1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color.fromARGB(12, 251, 251, 252),
         title: const Text(
           "WhatsApp",
           style: TextStyle(
@@ -90,14 +83,22 @@ class Chats extends StatelessWidget {
         itemCount: chatController.chatData.length,
         itemBuilder: (BuildContext context, int index) {
           return ListTile(
+            key: UniqueKey(), 
             leading: CircleAvatar(
               backgroundImage: NetworkImage(
                   chatController.chatData[index]['imageUrl'] ?? ''),
             ),
-            title: Text(chatController.chatData[index]['name'] ?? ''),
-            subtitle: Text(chatController.chatData[index]['message'] ?? ''),
+            title: Text(
+              chatController.chatData[index]['name'] ?? '',
+              style: TextStyle(color: Colors.white),
+            ),
+            subtitle: Text(
+              chatController.chatData[index]['message'] ?? '',
+              style: TextStyle(color: Colors.white),
+            ),
+            tileColor: Color.fromARGB(12, 251, 251, 252),
             onTap: () {
-              Get.to(PersonalChat());
+              Get.to(PersonalChat(), arguments: index);
             },
           );
         },
@@ -105,3 +106,6 @@ class Chats extends StatelessWidget {
     );
   }
 }
+
+
+

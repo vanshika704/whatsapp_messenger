@@ -89,7 +89,7 @@ Future<void> _signInWithGoogle() async {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold(backgroundColor: Color.fromARGB(255, 7, 13, 17),
       body: Center(
         child: Column(
           children: [
@@ -107,41 +107,50 @@ Future<void> _signInWithGoogle() async {
               height: 200,
               width: 200,
             ),
+           Padding(
+  padding: const EdgeInsets.all(20.0),
+  child: Container(
+    width: 400,
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(20.0),
+      border: Border.all(color: Color.fromARGB(255, 255, 255, 255)),
+    ),
+    child: TextFormField(
+      controller: _emailController,
+      keyboardType: TextInputType.emailAddress,
+      style: TextStyle(color: Colors.white),
+      decoration: InputDecoration(
+        labelText: 'Email id',
+        fillColor: Colors.white,
+        hintText: 'Enter your Email id',
+        labelStyle: TextStyle(color: Colors.white), 
+        hintStyle: TextStyle(color: Colors.white),  
+        prefixIcon: Icon(Icons.mail_outline_rounded, color: Colors.white),
+      ),
+    ),
+  ),
+),
+
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Container(
                 width: 400,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20.0),
-                  border: Border.all(),
-                ),
-                child: TextFormField(
-                  controller: _emailController,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: const InputDecoration(
-                    labelText: 'Email id',
-                    hintText: 'Enter your Email id',
-                    prefixIcon: Icon(Icons.mail_outline_rounded),
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Container(
-                width: 400,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.0),
-                  border: Border.all(),
+                  border: Border.all(color: Colors.white),
                 ),
                 child: TextFormField(
                   controller: _passwordController,
                   keyboardType: TextInputType.text,
                   obscureText: true,
+                  style: TextStyle(color: Colors.white),
                   decoration: const InputDecoration(
                     labelText: 'Password',
                     hintText: 'Enter your Password',
-                    prefixIcon: Icon(Icons.password_outlined),
+                    fillColor: Colors.white,
+                      labelStyle: TextStyle(color: Colors.white), 
+                      hintStyle: TextStyle(color: Colors.white),  
+                    prefixIcon: Icon(Icons.password_outlined,color: Colors.white,),
                   ),
                 ),
               ),
@@ -156,7 +165,12 @@ Future<void> _signInWithGoogle() async {
                   await _signInWithGoogle();
                   Get.to(() => const Page1());
                 } catch (e) {
-                  print('Error signing in: $e');
+               Get.snackbar(
+              'Error signing in: $e',
+               duration: const Duration(seconds: 2),
+               snackPosition: SnackPosition.TOP,
+);
+
                 }
               },
               child: const Text(
