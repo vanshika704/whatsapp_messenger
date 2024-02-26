@@ -109,7 +109,7 @@ class _ChatsState extends State<Chats> {
       itemBuilder: (BuildContext context, int index) {
         Contact contact = _contacts[index];
         return ListTile(
-          tileColor: const Color.fromARGB(255, 56, 56, 56),
+          tileColor: const Color.fromARGB(255, 7, 13, 17),
           leading: CircleAvatar(
             backgroundImage: contact.avatar != null
                 ? MemoryImage(contact.avatar!)

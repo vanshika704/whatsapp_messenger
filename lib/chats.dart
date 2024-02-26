@@ -1,13 +1,22 @@
-// personal_chat.dart
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:whatsapp_messenger/common/colors.dart';
 import 'package:contacts_service/contacts_service.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:cloud_firestore/cloud_firestore.dart'; 
 
-class PersonalChat extends StatelessWidget {
+class PersonalChat extends StatefulWidget {
   final Contact contact;
 
   const PersonalChat({Key? key, required this.contact}) : super(key: key);
+
+  @override
+  _PersonalChatState createState() => _PersonalChatState();
+}
+
+ class _PersonalChatState extends State<PersonalChat> {
+  TextEditingController _messageController = TextEditingController();
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -17,13 +26,13 @@ class PersonalChat extends StatelessWidget {
         title: Row(
           children: [
             CircleAvatar(
-              backgroundImage: contact.avatar != null
-                  ? MemoryImage(contact.avatar!)
+              backgroundImage: widget.contact.avatar != null
+                  ? MemoryImage(widget.contact.avatar!)
                   : AssetImage('assets/default.png') as ImageProvider<Object>?,
             ),
             SizedBox(width: 8),
             Text(
-              contact.displayName ?? 'Unknown',
+              widget.contact.displayName ?? 'Unknown',
               style: TextStyle(
                 color: Colors.white,
               ),
@@ -44,20 +53,50 @@ class PersonalChat extends StatelessWidget {
             right: 0,
             child: Container(
               padding: EdgeInsets.all(16),
-              child: TextField(
-                keyboardType: TextInputType.emailAddress,
-                decoration: const InputDecoration(
-                  labelText: 'Type.....',
-                  hintText: 'Type text....',
-                  prefixIcon: Icon(Icons.camera),
-                  filled: true,
-                  fillColor: Colors.transparent,
-                ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: _messageController,
+                      keyboardType: TextInputType.emailAddress,style: TextStyle(color: Colors.white),
+                      decoration: const InputDecoration(
+                        labelText: 'Type.....',
+                        labelStyle: TextStyle(color: Colors.white),
+                        hintText: 'Type text....',
+                        hintStyle: TextStyle(color: Colors.white),
+                        prefixIcon: Icon(Icons.camera,color: Colors.white,),
+
+                        filled: true,
+                        fillColor: Colors.transparent,
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 8),
+                  InkWell(
+                    onTap: _sendMessage,
+                    child: Icon(Icons.send,color: Colors.white,),
+                  ),
+                ],
               ),
             ),
           ),
         ],
       ),
     );
+  }
+
+  void _sendMessage() {
+    String message = _messageController.text.trim();
+    if (message.isNotEmpty) {
+ 
+      FirebaseFirestore.instance.collection('your_collection').add({
+        'senderId': FirebaseAuth.instance.currentUser?.uid,
+        'receiverId': widget.contact.identifier,
+        'message': message,
+        'timestamp': FieldValue.serverTimestamp(),
+      });
+
+      _messageController.clear();
+    }
   }
 }
