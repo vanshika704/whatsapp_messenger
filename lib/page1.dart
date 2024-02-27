@@ -4,7 +4,7 @@ import 'package:contacts_service/contacts_service.dart';
 import 'package:whatsapp_messenger/chats.dart';
 
 class Page1 extends StatelessWidget {
-  const Page1({Key? key}) : super(key: key);
+  const Page1({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +12,7 @@ class Page1 extends StatelessWidget {
       length: 4,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Color.fromARGB(255, 54, 54, 54),
+          backgroundColor: const Color.fromARGB(255, 54, 54, 54),
           title: const Text(
             "WhatsApp",
             style: TextStyle(
@@ -23,33 +23,33 @@ class Page1 extends StatelessWidget {
           ),
           actions: [
             IconButton(
-              icon: Icon(Icons.search, color: Colors.white),
+              icon: const Icon(Icons.search, color: Colors.white),
               onPressed: () {},
             ),
             IconButton(
-              icon: Icon(Icons.camera_alt, color: Colors.white),
+              icon: const Icon(Icons.camera_alt, color: Colors.white),
               onPressed: () {},
             ),
             PopupMenuButton(
               color: Colors.white,
               itemBuilder: (BuildContext context) {
                 return [
-                  PopupMenuItem(
+                  const PopupMenuItem(
                     child: Text("New group"),
                   ),
-                  PopupMenuItem(
+                  const PopupMenuItem(
                     child: Text("New broadcast"),
                   ),
-                  PopupMenuItem(
+                  const PopupMenuItem(
                     child: Text("Linked devices"),
                   ),
-                  PopupMenuItem(
+                  const PopupMenuItem(
                     child: Text("Starred messages"),
                   ),
-                  PopupMenuItem(
+                  const PopupMenuItem(
                     child: Text("Payments"),
                   ),
-                  PopupMenuItem(
+                  const PopupMenuItem(
                     child: Text("Settings"),
                   ),
                 ];
@@ -73,7 +73,7 @@ class Page1 extends StatelessWidget {
             ],
           ),
         ),
-        body: Chats(),
+        body: const Chats(),
       ),
     );
   }
@@ -82,6 +82,8 @@ class Page1 extends StatelessWidget {
 
 
 class Chats extends StatefulWidget {
+  const Chats({super.key});
+
   @override
   _ChatsState createState() => _ChatsState();
 }
@@ -113,11 +115,11 @@ class _ChatsState extends State<Chats> {
           leading: CircleAvatar(
             backgroundImage: contact.avatar != null
                 ? MemoryImage(contact.avatar!)
-                : AssetImage('assets/default.png') as ImageProvider<Object>?,
+                : const AssetImage('assets/default.png') as ImageProvider<Object>?,
           ),
           title: Text(
             contact.displayName ?? '',
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.white, 
             ),
           ),
