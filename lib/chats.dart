@@ -17,7 +17,15 @@ class PersonalChat extends StatefulWidget {
 class _PersonalChatState extends State<PersonalChat> {
   TextEditingController _messageController = TextEditingController();
   FirebaseMessaging messaging = FirebaseMessaging.instance;
+ @override
+  void initState() {
+    super.initState();
 
+    
+    if (widget.contact.identifier != null) {
+      messaging.subscribeToTopic(widget.contact.identifier!);
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
