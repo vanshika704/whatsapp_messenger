@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:whatsapp_messenger/common/colors.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';//.
 
 class PersonalChat extends StatefulWidget {
   final Contact contact;
