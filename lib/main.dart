@@ -17,7 +17,9 @@ import 'package:whatsapp_messenger/page1.dart';
   FirebaseFirestore.instance.settings = const Settings(
     persistenceEnabled: true,
   );
+  
   runApp(const MyApp());
+  
 }
 
 class MyApp extends StatelessWidget {

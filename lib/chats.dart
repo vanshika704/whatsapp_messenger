@@ -1,9 +1,15 @@
+import 'package:contacts_service/contacts_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/get_navigation.dart';
+import 'package:jitsi_meet/jitsi_meet.dart';
+import 'dart:math';
 import 'package:whatsapp_messenger/common/colors.dart';
-import 'package:contacts_service/contacts_service.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+
 
 class PersonalChat extends StatefulWidget {
   final Contact contact;
@@ -15,17 +21,17 @@ class PersonalChat extends StatefulWidget {
 }
 
 class _PersonalChatState extends State<PersonalChat> {
-  TextEditingController _messageController = TextEditingController();
+  final TextEditingController _messageController = TextEditingController();
   FirebaseMessaging messaging = FirebaseMessaging.instance;
- @override
+  @override
   void initState() {
     super.initState();
 
-    
     if (widget.contact.identifier != null) {
       messaging.subscribeToTopic(widget.contact.identifier!);
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,16 +42,42 @@ class _PersonalChatState extends State<PersonalChat> {
             CircleAvatar(
               backgroundImage: widget.contact.avatar != null
                   ? MemoryImage(widget.contact.avatar!)
-                  : AssetImage('assets/default.png') as ImageProvider<Object>?,
+                  : const AssetImage('assets/default.png') as ImageProvider<Object>?,
             ),
-            SizedBox(width: 8),
+            const SizedBox(width: 8),
             Expanded(
               child: Text(
                 widget.contact.displayName ?? 'Unknown',
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                 ),
               ),
+            ),
+            const SizedBox(width: 8),
+            IconButton(
+                onPressed: () async {
+                await Get.to(_joinMeeting());
+                },
+
+                icon: const Icon(
+                  Icons.video_call_outlined,
+                  color: Colors.white,
+                )),
+            PopupMenuButton(
+              color: Colors.white,
+              itemBuilder: (BuildContext context) {
+                return [
+                  const PopupMenuItem(
+                    child: Text("block"),
+                  ),
+                  const PopupMenuItem(
+                    child: Text("wallpaper"),
+                  ),
+                  const PopupMenuItem(
+                    child: Text("clear chat"),
+                  )
+                ];
+              },
             ),
           ],
         ),
@@ -55,34 +87,39 @@ class _PersonalChatState extends State<PersonalChat> {
           Expanded(
             child: Container(
               color: Coloors.backgroundDark(),
-              child: _buildChatHistory(), 
+              child: _buildChatHistory(),
             ),
           ),
           Container(
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             child: Row(
               children: [
                 Expanded(
-                  child:   TextField(
-                      controller: _messageController,
-                      keyboardType: TextInputType.emailAddress,style: TextStyle(color: const Color.fromARGB(255, 14, 12, 12)),
-                      decoration: const InputDecoration(
-                        labelText: 'Type.....',
-                        labelStyle: TextStyle(color: Color.fromARGB(255, 14, 13, 13)),
-                        hintText: 'Type text....',
-                        hintStyle: TextStyle(color: Color.fromARGB(255, 10, 10, 10)),
-                        prefixIcon: Icon(Icons.camera,color: Color.fromARGB(255, 8, 8, 8),),
-
-                        filled: false,
-                        
+                  child: TextField(
+                    controller: _messageController,
+                    keyboardType: TextInputType.emailAddress,
+                    style:
+                        const TextStyle(color: Color.fromARGB(255, 14, 12, 12)),
+                    decoration: const InputDecoration(
+                      labelText: 'Type.....',
+                      labelStyle:
+                          TextStyle(color: Color.fromARGB(255, 14, 13, 13)),
+                      hintText: 'Type text....',
+                      hintStyle:
+                          TextStyle(color: Color.fromARGB(255, 10, 10, 10)),
+                      prefixIcon: Icon(
+                        Icons.camera,
+                        color: Color.fromARGB(255, 8, 8, 8),
                       ),
+                      filled: false,
                     ),
-     
+                  ),
                 ),
-                SizedBox(width: 2),
+                const SizedBox(width: 2),
                 InkWell(
                   onTap: _sendMessage,
-                  child: Icon(Icons.send, color: const Color.fromARGB(255, 12, 12, 12)),
+                  child: const Icon(Icons.send,
+                      color: Color.fromARGB(255, 12, 12, 12)),
                 ),
               ],
             ),
@@ -102,7 +139,7 @@ class _PersonalChatState extends State<PersonalChat> {
           .snapshots(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         }
@@ -119,10 +156,11 @@ class _PersonalChatState extends State<PersonalChat> {
           itemCount: messages.length,
           itemBuilder: (context, index) {
             var messageData = messages[index].data() as Map<String, dynamic>;
-            return ListTile(minLeadingWidth: 10,
+            return ListTile(
+              minLeadingWidth: 10,
               title: Text(
                 messageData['message'],
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
               ),
             );
           },
@@ -145,3 +183,23 @@ class _PersonalChatState extends State<PersonalChat> {
     }
   }
 }
+
+void _handlePopupMenuSelection(String value) {
+  if (value == "block") {
+  } else if (value == "wallpaper") {
+  } else if (value == "clear_chat") {}
+}
+String generateRandomRoomName() {
+  final random = Random();
+  return 'room_${random.nextInt(9999)}';
+}
+ _joinMeeting() async {
+    try {
+      var roomName = generateRandomRoomName();
+      var options = JitsiMeetingOptions(room: roomName);
+      await JitsiMeet.joinMeeting(options);
+    } catch (error) {
+      print("Error: $error");
+    }
+  }
+ 
