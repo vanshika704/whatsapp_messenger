@@ -3,10 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-
 import 'package:whatsapp_messenger/common/colors.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 
 class PersonalChat extends StatefulWidget {
   final Contact contact;
@@ -190,5 +190,33 @@ class _PersonalChatState extends State<PersonalChat> {
 
       _messageController.clear();
     }
+  }
+}
+class CallPage extends StatelessWidget {
+  const CallPage({
+    Key? key,
+    required this.callID,
+    required this.contact,
+  }) : super(key: key);
+
+  final String callID;
+  final Contact contact;
+
+  @override
+  Widget build(BuildContext context) {
+    String phoneNumber = contact.phones?.isNotEmpty == true
+        ? contact.phones!.first.value ?? ''
+        : '';
+
+    String userName = contact.displayName ?? 'Unknown'; // Use display name as userName
+
+    return ZegoUIKitPrebuiltCall(
+      appID: 945202887, // Fill in the appID that you get from ZEGOCLOUD Admin Console.
+      appSign: '42a38bb963af959422d95fe9bd149d4f1d14c11a3c85bb3a1e03ea3cb6192ec0', // Fill in the appSign that you get from ZEGOCLOUD Admin Console.
+      userID: phoneNumber,
+      userName: userName, // Use contact's display name as userName
+      callID: callID,
+      config: ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall(),
+    );
   }
 }
