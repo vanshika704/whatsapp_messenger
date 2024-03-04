@@ -208,13 +208,13 @@ class CallPage extends StatelessWidget {
         ? contact.phones!.first.value ?? ''
         : '';
 
-    String userName = contact.displayName ?? 'Unknown'; // Use display name as userName
+    String userName = contact.displayName ?? 'Unknown'; 
 
     return ZegoUIKitPrebuiltCall(
-      appID: 945202887, // Fill in the appID that you get from ZEGOCLOUD Admin Console.
-      appSign: '42a38bb963af959422d95fe9bd149d4f1d14c11a3c85bb3a1e03ea3cb6192ec0', // Fill in the appSign that you get from ZEGOCLOUD Admin Console.
+      appID: 945202887, 
+      appSign: '42a38bb963af959422d95fe9bd149d4f1d14c11a3c85bb3a1e03ea3cb6192ec0', 
       userID: phoneNumber,
-      userName: userName, // Use contact's display name as userName
+      userName: userName, 
       callID: callID,
       config: ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall(),
     );
