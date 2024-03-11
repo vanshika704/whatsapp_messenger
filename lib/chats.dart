@@ -136,7 +136,7 @@ class _PersonalChatState extends State<PersonalChat> {
     children: [
       Expanded(
         child: Container(
-          color: Coloors.backgroundDark(),
+          color: Colors.transparent,
           child: ListView.builder(
             itemCount: _messages.length,
             itemBuilder: (context, index) {
