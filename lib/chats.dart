@@ -158,7 +158,7 @@ class _PersonalChatState extends State<PersonalChat> {
                 ),
                 child: ListTile(
                   minLeadingWidth: 2,
-                  tileColor: Coloors.backgroundDark(),
+                  tileColor: Colors.transparent,
                   title: GestureDetector(
                     onHorizontalDragEnd: (details) {
                       if (details.primaryVelocity! < 0) {
