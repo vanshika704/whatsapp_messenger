@@ -80,7 +80,13 @@ class _PersonalChatState extends State<PersonalChat> {
         ),
       ),
       body: Stack(
-        children:[ Column(
+        children:[ Image.asset(
+      'assets/chatsbackground.jpg', 
+      fit: BoxFit.cover,
+      width: double.infinity,
+      height: double.infinity,
+    ),
+           Column(
           children: [
             Expanded(
               child: Container(
@@ -142,7 +148,7 @@ class _PersonalChatState extends State<PersonalChat> {
                   });
                 },
                 background: Container(
-                  color: Colors.red, // You can customize the background color
+                  color: Colors.red, 
                   alignment: Alignment.centerRight,
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: const Icon(
