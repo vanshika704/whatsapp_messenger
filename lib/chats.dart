@@ -79,47 +79,49 @@ class _PersonalChatState extends State<PersonalChat> {
           ],
         ),
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: Container(
-              color: Coloors.backgroundDark(),
-              child: _buildChatHistory(),
+      body: Stack(
+        children:[ Column(
+          children: [
+            Expanded(
+              child: Container(
+                color: Coloors.backgroundDark(),
+                child: _buildChatHistory(),
+              ),
             ),
-          ),
-          Container(
-            padding: const EdgeInsets.all(16),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: _messageController,
-                    keyboardType: TextInputType.emailAddress,
-                    style: const TextStyle(color: Color.fromARGB(255, 14, 12, 12)),
-                    decoration: const InputDecoration(
-                      labelText: 'Type.....',
-                      labelStyle: TextStyle(color: Color.fromARGB(255, 14, 13, 13)),
-                      hintText: 'Type text....',
-                      hintStyle: TextStyle(color: Color.fromARGB(255, 10, 10, 10)),
-                      prefixIcon: Icon(
-                        Icons.camera,
-                        color: Color.fromARGB(255, 8, 8, 8),
+            Container(
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: _messageController,
+                      keyboardType: TextInputType.emailAddress,
+                      style: const TextStyle(color: Color.fromARGB(255, 14, 12, 12)),
+                      decoration: const InputDecoration(
+                        labelText: 'Type.....',
+                        labelStyle: TextStyle(color: Color.fromARGB(255, 14, 13, 13)),
+                        hintText: 'Type text....',
+                        hintStyle: TextStyle(color: Color.fromARGB(255, 10, 10, 10)),
+                        prefixIcon: Icon(
+                          Icons.camera,
+                          color: Color.fromARGB(255, 8, 8, 8),
+                        ),
+                        filled: true,
+                        fillColor: Colors.transparent,
                       ),
-                      filled: true,
-                      fillColor: Colors.transparent,
                     ),
                   ),
-                ),
-                const SizedBox(width: 2),
-                InkWell(
-                  onTap: _sendMessage,
-                  child: const Icon(Icons.send, color: Color.fromARGB(255, 7, 7, 7)),
-                ),
-              ],
+                  const SizedBox(width: 2),
+                  InkWell(
+                    onTap: _sendMessage,
+                    child: const Icon(Icons.send, color: Color.fromARGB(255, 7, 7, 7)),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
-      ),
+          ],
+        ),
+      ]),
     );
   }
 
