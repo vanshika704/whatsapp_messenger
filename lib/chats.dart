@@ -192,15 +192,17 @@ class _PersonalChatState extends State<PersonalChat> {
     }
   }
 }
+
+
 class CallPage extends StatelessWidget {
+  final String callID;
+  final Contact contact;
+
   const CallPage({
     Key? key,
     required this.callID,
     required this.contact,
   }) : super(key: key);
-
-  final String callID;
-  final Contact contact;
 
   @override
   Widget build(BuildContext context) {
@@ -208,15 +210,36 @@ class CallPage extends StatelessWidget {
         ? contact.phones!.first.value ?? ''
         : '';
 
-    String userName = contact.displayName ?? 'Unknown'; 
+    String userName = contact.displayName ?? 'Unknown';
 
-    return ZegoUIKitPrebuiltCall(
-      appID: 945202887, 
-      appSign: '42a38bb963af959422d95fe9bd149d4f1d14c11a3c85bb3a1e03ea3cb6192ec0', 
-      userID: phoneNumber,
-      userName: userName, 
-      callID: callID,
-      config: ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall(),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(userName),
+        backgroundColor: Coloors.backgroundDark(),
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+        
+          ZegoUIKitPrebuiltCall(
+            appID: 945202887,
+            appSign:
+                '42a38bb963af959422d95fe9bd149d4f1d14c11a3c85bb3a1e03ea3cb6192ec0',
+            userID: phoneNumber,
+            userName: userName,
+            callID: callID,
+            config: ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall(),
+          ),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // End the call when the button is pressed
+          Navigator.pop(context); // Close the call page
+        },
+        child: Icon(Icons.call_end),
+        backgroundColor: Colors.red,
+      ),
     );
   }
 }
