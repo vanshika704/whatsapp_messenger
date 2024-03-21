@@ -159,7 +159,7 @@ class _PersonalChatState extends State<PersonalChat> {
                 child: ListTile(
                   minLeadingWidth: 2,
                   tileColor: Colors.transparent,
-                  title: GestureDetector(
+                  title: GestureDetector(//.
                     onHorizontalDragEnd: (details) {
                       if (details.primaryVelocity! < 0) {
                         // User swiped left (negative velocity), you can perform some action here
