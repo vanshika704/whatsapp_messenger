@@ -22,7 +22,7 @@ OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
 
 OneSignal.initialize("c41ac4b7-944e-42b4-9071-4abe12bf2fca");
 
-//.
+
 OneSignal.Notifications.requestPermission(true);
   runApp(const MyApp());
   
