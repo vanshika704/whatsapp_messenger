@@ -12,13 +12,13 @@ class Page1 extends StatelessWidget {
       length: 4,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: const Color.fromARGB(255, 54, 54, 54),
+          backgroundColor: Color.fromARGB(255, 37, 35, 35),
           title: const Text(
             "WhatsApp",
             style: TextStyle(
               color: Color.fromARGB(255, 254, 255, 255),
               fontWeight: FontWeight.bold,
-              fontSize: 30,
+              fontSize: 20,
             ),
           ),
           actions: [

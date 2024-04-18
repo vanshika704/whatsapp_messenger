@@ -89,10 +89,13 @@ class _PersonalChatState extends State<PersonalChat> {
            Column(
           children: [
             Expanded(
-              child: Container(
-                color: Coloors.backgroundDark(),
-                child: _buildChatHistory(),
-              ),
+              child: Stack(
+                children: [
+                  Container(
+                  color: Coloors.backgroundDark(),
+                  child:Stack(children: [Image.asset("assets/chatsbackground.jpg"),_buildChatHistory(),],) 
+                ),
+          ]),
             ),
             Container(
               padding: const EdgeInsets.all(16),
@@ -102,15 +105,15 @@ class _PersonalChatState extends State<PersonalChat> {
                     child: TextField(
                       controller: _messageController,
                       keyboardType: TextInputType.emailAddress,
-                      style: const TextStyle(color: Color.fromARGB(255, 14, 12, 12)),
+                      style: const TextStyle(color: Color.fromARGB(255, 250, 247, 247)),
                       decoration: const InputDecoration(
                         labelText: 'Type.....',
-                        labelStyle: TextStyle(color: Color.fromARGB(255, 14, 13, 13)),
+                        labelStyle: TextStyle(color: Color.fromARGB(255, 248, 246, 246)),
                         hintText: 'Type text....',
-                        hintStyle: TextStyle(color: Color.fromARGB(255, 10, 10, 10)),
+                        hintStyle: TextStyle(color: Color.fromARGB(255, 250, 248, 248)),
                         prefixIcon: Icon(
                           Icons.camera,
-                          color: Color.fromARGB(255, 8, 8, 8),
+                          color: Color.fromARGB(255, 253, 251, 251),
                         ),
                         filled: true,
                         fillColor: Colors.transparent,
@@ -120,7 +123,7 @@ class _PersonalChatState extends State<PersonalChat> {
                   const SizedBox(width: 2),
                   InkWell(
                     onTap: _sendMessage,
-                    child: const Icon(Icons.send, color: Color.fromARGB(255, 7, 7, 7)),
+                    child: const Icon(Icons.send, color: Color.fromARGB(255, 247, 244, 244)),
                   ),
                 ],
               ),
@@ -132,51 +135,61 @@ class _PersonalChatState extends State<PersonalChat> {
   }
 
  Widget _buildChatHistory() {
-  return Column(
+  return Stack(
     children: [
-      Expanded(
-        child: Container(
-          color: Colors.transparent,
-          child: ListView.builder(
-            itemCount: _messages.length,
-            itemBuilder: (context, index) {
-              return Dismissible(
-                key: Key(_messages[index]),
-                onDismissed: (direction) {
-                  setState(() {
-                    _messages.removeAt(index);
-                  });
-                },
-                background: Container(
-                  color: Colors.red, 
-                  alignment: Alignment.centerRight,
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: const Icon(
-                    Icons.delete,
-                    color: Colors.white,
-                  ),
-                ),
-                child: ListTile(
-                  minLeadingWidth: 2,
-                  tileColor: Colors.transparent,
-                  title: GestureDetector(
-                    onHorizontalDragEnd: (details) {
-                      if (details.primaryVelocity! < 0) {
-                        // User swiped left (negative velocity), you can perform some action here
-                      } else if (details.primaryVelocity! > 0) {
-                        // User swiped right (positive velocity), you can perform some action here
-                      }
-                    },
-                    child: Text(
-                      _messages[index],
-                      style: const TextStyle(color: Colors.white),
-                    ),
-                  ),
-                ),
-              );
-            },
-          ),
+      Positioned.fill(
+        child: Image.asset(
+          "assets/chatsbackground.jpg",
+          fit: BoxFit.cover,
         ),
+      ),
+      Column(
+        children: [
+          Expanded(
+            child: Container(
+              color: Colors.transparent,
+              child: ListView.builder(
+                itemCount: _messages.length,
+                itemBuilder: (context, index) {
+                  return Dismissible(
+                    key: Key(_messages[index]),
+                    onDismissed: (direction) {
+                      setState(() {
+                        _messages.removeAt(index);
+                      });
+                    },
+                    background: Container(
+                      color: Colors.red,
+                      alignment: Alignment.centerRight,
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: const Icon(
+                        Icons.delete,
+                        color: Colors.white,
+                      ),
+                    ),
+                    child: ListTile(
+                      minLeadingWidth: 2,
+                      tileColor: Colors.transparent,
+                      title: GestureDetector(
+                        onHorizontalDragEnd: (details) {
+                          if (details.primaryVelocity! < 0) {
+                            // User swiped left (negative velocity), you can perform some action here
+                          } else if (details.primaryVelocity! > 0) {
+                            // User swiped right (positive velocity), you can perform some action here
+                          }
+                        },
+                        child: Text(
+                          _messages[index],
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ),
+        ],
       ),
     ],
   );
