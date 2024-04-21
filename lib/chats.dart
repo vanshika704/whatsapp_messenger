@@ -107,9 +107,9 @@ class _PersonalChatState extends State<PersonalChat> {
                       keyboardType: TextInputType.emailAddress,
                       style: const TextStyle(color: Color.fromARGB(255, 250, 247, 247)),
                       decoration: const InputDecoration(
-                        labelText: 'Type.....',
+                        labelText: 'Type',
                         labelStyle: TextStyle(color: Color.fromARGB(255, 248, 246, 246)),
-                        hintText: 'Type text....',
+                        hintText: 'Type message',
                         hintStyle: TextStyle(color: Color.fromARGB(255, 250, 248, 248)),
                         prefixIcon: Icon(
                           Icons.camera,
